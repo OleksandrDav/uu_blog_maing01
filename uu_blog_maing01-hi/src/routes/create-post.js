@@ -22,6 +22,8 @@ const Css = {
     margin: '30px',
     padding: '30px',
     borderRadius: "10px",
+    display: "flex",
+    flexDirection: "column"
   }),
   button: () => Config.Css.css({
     padding: '10px 20px',
@@ -31,6 +33,7 @@ const Css = {
     borderRadius: '4px',
     backgroundColor: '#fff',
     textTransform: 'uppercase',
+    borderColor: 'rgba(83, 194, 250, 0.8)',
     '&:hover': {
       backgroundColor: '#f0f0f0',
     },
@@ -57,8 +60,22 @@ const Css = {
     fontSize: '18px',
     boxSizing: 'border-box',
   }),
+  buttonUpload: () => Config.Css.css({
+    padding: '10px 20px',
+    marginRight: '15px',
+    border: '1px solid #333',
+    cursor: 'pointer',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(83, 194, 250, 0.8)',
+    textTransform: 'uppercase',
+    '&:hover': {
+      backgroundColor: '#f0f0f0',
+    },
+  }),
+  footer: () => Config.Css.css({
+    marginTop: "auto",
+  }),
 };
-
 
 //@@viewOff:css
 
@@ -92,14 +109,16 @@ const CreatePost = createVisualComponent({
     return (
       <div className={Css.main()}>
         <div className={Css.paper()}>
-          <button className={Css.button()} onClick={() => inputFileRef.current.click()}>
-            Upload Image
-          </button>
-          <input
-            type="file"
-            ref={inputFileRef}
-            style={{ display: 'none' }}
-          />
+          <div>
+            <button className={Css.button()} onClick={() => inputFileRef.current.click()}>
+              Upload Image
+            </button>
+            <input
+              type="file"
+              ref={inputFileRef}
+              style={{ display: 'none' }}
+            />
+          </div>
           <button
             className={Css.button()}
             style={{ display: 'none' }}
@@ -114,7 +133,6 @@ const CreatePost = createVisualComponent({
             alt="Uploaded"
           />
           <br />
-          <br />
           <input
             className={Css.title()}
             type="text"
@@ -125,8 +143,8 @@ const CreatePost = createVisualComponent({
             id="editor"
             placeholder="Write the text of the post..."
           ></textarea>
-          <div>
-            <button className={Css.button()}>Upload Post</button>
+          <div className={Css.footer()}>
+            <button className={Css.buttonUpload()}>Upload Post</button>
             <a href="/">
               <button className={Css.button()}>Cancel</button>
             </a>

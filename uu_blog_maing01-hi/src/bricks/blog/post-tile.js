@@ -17,7 +17,13 @@ const Css = {
       padding: 16,
       height: 48,
     }),
-
+  name: () =>
+    Config.Css.css({
+      display: "block",
+      paddingLeft: "16px",
+      paddingTop: "8px",
+      paddingBottom: "3px",
+    }),
   footer: () =>
     Config.Css.css({
       display: "flex",
@@ -52,7 +58,7 @@ const PostTile = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ post, style, handleDelete  }) {
+  render({ post, style, handleDelete }) {
     //@@viewOn:private
     //@@viewOff:private
 
@@ -67,7 +73,7 @@ const PostTile = createVisualComponent({
         </div>
         <Line significance="subdued" />
         <div>
-          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
+          <Text className={Css.name()} category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
             {post.creatorName}
           </Text>
         </div>
@@ -75,8 +81,8 @@ const PostTile = createVisualComponent({
           {`Amount of views: ${post.totalViews}`}
           <div>
             <Button icon="mdi-pencil" significance="subdued" tooltip="Update" />
-            <Button icon="mdi-delete" significance="subdued" tooltip="Delete" 
-            onClick={() => handleDelete(post.id)} />
+            <Button icon="mdi-delete" significance="subdued" tooltip="Delete"
+              onClick={() => handleDelete(post.id)} />
           </div>
         </Box>
       </Box>
