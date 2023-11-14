@@ -13,7 +13,7 @@ let Home = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    
+
     //@@vieOff:private
 
     //@@viewOn:render
@@ -21,11 +21,11 @@ let Home = createVisualComponent({
       <>
         <PostListProvider>
           {({ postList, handleDelete }) => (
-              <PostListView 
-              postList={postList} 
+            <PostListView
+              postList={postList}
               handleDelete={handleDelete}
-               />
-            )
+            />
+          )
           }
         </PostListProvider>
       </>

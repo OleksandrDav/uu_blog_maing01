@@ -60,6 +60,9 @@ const PostTile = createVisualComponent({
 
   render({ post, style, handleDelete }) {
     //@@viewOn:private
+    function handleUpdate() {
+      alert("It's not implemented yet")
+    }
     //@@viewOff:private
 
     //@@viewOn:render
@@ -80,7 +83,8 @@ const PostTile = createVisualComponent({
         <Box significance="distinct" className={Css.footer()}>
           {`Amount of views: ${post.totalViews}`}
           <div>
-            <Button icon="mdi-pencil" significance="subdued" tooltip="Update" />
+            <Button icon="mdi-pencil" significance="subdued" tooltip="Update"
+              onClick={() => handleUpdate()} />
             <Button icon="mdi-delete" significance="subdued" tooltip="Delete"
               onClick={() => handleDelete(post.id)} />
           </div>

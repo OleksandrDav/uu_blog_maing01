@@ -34,9 +34,9 @@ const PostListView = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({postList, handleDelete }) {
+  render({ postList, handleDelete }) {
     //@@viewOn:private
-    
+
     //@@viewOff:private
 
     //@@viewOn:interface
