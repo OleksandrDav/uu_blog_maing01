@@ -6,6 +6,9 @@
       "schemaMap": {
         "blogMain": {
           "realization": "dao/BlogMainMongo"
+        },
+        "post": {
+          "realization": "dao/PostMongo"
         }
       }
     }

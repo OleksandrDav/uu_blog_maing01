@@ -25,6 +25,21 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "post/create": {
+        "realization": "api/controllers/PostController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "post/delete": {
+        "realization": "api/controllers/PostController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "post/get": {
+        "realization": "api/controllers/PostController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
