@@ -3,7 +3,7 @@
 const PostCreateDtoInType = shape({
    title: string(3, 150).isRequired(),
    postText: string(3, 5000).isRequired(),
-   imageUrl: string()
+   image: binary()
 })
 
 const PostGetDtoInType = shape({

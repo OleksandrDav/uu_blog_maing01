@@ -4,6 +4,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/post-error.js");
+const { BinaryComponent } = require("uu_appbinarystoreg02");
 
 const Warnings = require("../api/warnings/post-warnings.js")
 
@@ -12,6 +13,7 @@ class PostAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("post");
+    this.binaryComponent = new BinaryComponent();
   }
 
   async get(awid, dtoIn) {
@@ -85,9 +87,22 @@ class PostAbl {
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
 
+    let imageCode;
+    if (dtoIn.image) {
+      const uuBinary = await this.binaryComponent.create(awid, {
+        data: dtoIn.image,
+        filename: dtoIn.image.filename,
+        contentType: dtoIn.image.contentType,
+      });
+
+      imageCode = uuBinary.code;
+    }
+
     const uuObject = {
       awid,
-      ...dtoIn,
+      title: dtoIn.title,
+      text: dtoIn.text,
+      imageCode,
       creatorIdentity: uuIdentity,
       creatorName: uuIdentityName,
       totalViews: 0
