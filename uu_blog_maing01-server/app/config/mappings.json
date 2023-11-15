@@ -40,6 +40,11 @@
         "realization": "api/controllers/PostController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "comment/create": {
+        "realization": "api/controllers/CommentController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

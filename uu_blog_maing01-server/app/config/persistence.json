@@ -9,6 +9,9 @@
         },
         "post": {
           "realization": "dao/PostMongo"
+        },
+        "comment": {
+          "realization": "dao/CommentMongo"
         }
       }
     }

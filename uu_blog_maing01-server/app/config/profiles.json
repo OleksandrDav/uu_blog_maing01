@@ -36,6 +36,10 @@
       "post/get": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "comment/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
