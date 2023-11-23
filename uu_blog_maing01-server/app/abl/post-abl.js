@@ -59,6 +59,12 @@ class PostAbl {
       // 3.1
       throw new Errors.Delete.PostDoesNotExist({ uuAppErrorMap }, { postId: dtoIn.id });
     }
+    if (post.imageCode) {
+      await this.binaryComponent.delete(awid, {
+        awid: awid,
+        code: post.imageCode
+      });
+    }
 
     await this.dao.delete(awid, dtoIn.id);
 
@@ -101,7 +107,7 @@ class PostAbl {
     const uuObject = {
       awid,
       title: dtoIn.title,
-      text: dtoIn.text,
+      postText: dtoIn.postText,
       imageCode,
       creatorIdentity: uuIdentity,
       creatorName: uuIdentityName,

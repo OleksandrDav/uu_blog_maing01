@@ -11,5 +11,5 @@ const PostGetDtoInType = shape({
 });
 
 const PostDeleteDtoInType = shape({
-   id: id().isRequired()
+   id: id().isRequired(),
 });
