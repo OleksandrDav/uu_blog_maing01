@@ -44,6 +44,14 @@
       "post/update": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "binary/getData": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives"]
+      },
+      "binary/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives"]
       }
     }
   }
