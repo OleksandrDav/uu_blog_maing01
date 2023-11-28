@@ -13,3 +13,11 @@ const PostGetDtoInType = shape({
 const PostDeleteDtoInType = shape({
    id: id().isRequired(),
 });
+
+const PostUpdateDtoInType = shape({
+   id: id().isRequired(),
+   title: string(3, 150),
+   postText: string(3, 5000),
+   image: binary(),
+   deleteImage: boolean(),
+ });

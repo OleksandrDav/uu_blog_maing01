@@ -45,6 +45,11 @@
         "realization": "api/controllers/CommentController.create",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "post/update": {
+        "realization": "api/controllers/PostController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

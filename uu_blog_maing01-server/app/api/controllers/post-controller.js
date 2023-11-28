@@ -3,6 +3,15 @@ const PostAbl = require("../../abl/post-abl.js");
 
 class PostController {
 
+  update(ucEnv) {
+    return PostAbl.update(
+      ucEnv.getUri().getAwid(), 
+      ucEnv.getDtoIn(),
+      ucEnv.getSession(),
+      ucEnv.getAuthorizationResult()
+      );
+  }
+
   get(ucEnv) {
     return PostAbl.get(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

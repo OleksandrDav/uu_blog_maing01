@@ -16,6 +16,70 @@ class PostAbl {
     this.binaryComponent = new BinaryComponent();
   }
 
+  async update(awid, dtoIn, session, authorizationResult) {
+    let uuAppErrorMap = {};
+
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("PostUpdateDtoInType", dtoIn);
+    // 1.2, 1.2.1, 1.3, 1.3.1
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    const post = await this.dao.get(awid, dtoIn.id);
+    if (!post) {
+      // 3.1
+      throw new Errors.Update.PostDoesNotExist(uuAppErrorMap, { postId: dtoIn.id });
+    }
+
+    if (dtoIn.title) {
+      post.title = dtoIn.title;
+    }
+    if (dtoIn.postText) {
+      post.postText = dtoIn.postText;
+    }
+
+    if (dtoIn.image) {
+
+      if (post.imageCode) {
+        await this.binaryComponent.delete(awid, {
+          awid: awid,
+          code: post.imageCode
+        });
+      }
+
+      const uuBinary = await this.binaryComponent.create(awid, {
+        data: dtoIn.image,
+        filename: dtoIn.image.filename,
+        contentType: dtoIn.image.contentType,
+      });
+
+      post.imageCode = uuBinary.code;
+    }
+
+
+    if (dtoIn.deleteImage && !dtoIn.image && post.imageCode) {
+
+      await this.binaryComponent.delete(awid, {
+        awid: awid,
+        code: post.imageCode
+      });
+      post.imageCode = null;
+    }
+    await this.dao.update(post);
+
+    const dtoOut = {
+      post,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
+  }
+
   async get(awid, dtoIn) {
     let uuAppErrorMap = {};
 

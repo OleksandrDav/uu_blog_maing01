@@ -20,6 +20,11 @@ class PostMongo extends UuObjectDao {
     return await super.findOne({ id, awid });
   }
 
+  async update(post) {
+    let filter = { id: post.id, awid: post.awid };
+    return await super.findOneAndUpdate(filter, post, "NONE");
+  }
+
 }
 
 module.exports = PostMongo;

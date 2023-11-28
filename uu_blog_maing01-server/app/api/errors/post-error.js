@@ -79,7 +79,40 @@ const Get = {
   },
 };
 
+const Update = {
+  UC_CODE: `${POST_ERROR_PREFIX}update/`,
+  InvalidDtoIn: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  PostMainDoesNotExist: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}postMainDoesNotExist`;
+      this.message = "UuObject postMain does not exist.";
+    }
+  },
+  PostMainNotInCorrectState: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}postMainNotInCorrectState`;
+      this.message = "UuObject postMain is not in correct state.";
+    }
+  },
+  PostDoesNotExist: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}postDoesNotExist`;
+      this.message = "post does not exist.";
+    }
+  },
+};
+
 module.exports = {
+  Update,
   Get,
   Delete,
   Create

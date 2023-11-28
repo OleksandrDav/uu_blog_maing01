@@ -40,6 +40,10 @@
       "comment/create": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "post/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
