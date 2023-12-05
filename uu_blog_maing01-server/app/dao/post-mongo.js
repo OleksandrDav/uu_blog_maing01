@@ -35,6 +35,11 @@ class PostMongo extends UuObjectDao {
     return await super.findOneAndUpdate(filter, post, "NONE");
   }
 
+  async incrementTotalViews(awid, id) {
+    let filter = { awid, id };
+    let update = { $inc: { totalViews: 1 } };
+    return await super.findOneAndUpdate(filter, update, "NONE");
+  }
 }
 
 module.exports = PostMongo;

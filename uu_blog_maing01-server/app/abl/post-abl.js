@@ -137,6 +137,8 @@ class PostAbl {
       throw new Errors.Get.PostDoesNotExist(uuAppErrorMap, { postId: dtoIn.id });
     }
 
+    await this.dao.incrementTotalViews(awid, dtoIn.id);
+
     const dtoOut = {
       ...post,
       uuAppErrorMap,
