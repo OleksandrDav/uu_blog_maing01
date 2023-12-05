@@ -20,4 +20,16 @@ const PostUpdateDtoInType = shape({
    postText: string(3, 5000),
    image: binary(),
    deleteImage: boolean(),
- });
+});
+
+const PostListDtoInType = shape({
+   pageInfo: shape({
+      pageIndex: integer(),
+      pageSize: integer(),
+   }),
+   searchQuery: string(),
+   sortQuery: shape({
+      sortBy: string(),
+      order: string(),
+   }),
+});

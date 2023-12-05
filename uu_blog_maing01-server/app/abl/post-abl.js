@@ -8,12 +8,51 @@ const { BinaryComponent } = require("uu_appbinarystoreg02");
 
 const Warnings = require("../api/warnings/post-warnings.js")
 
+const DEFAULTS = {
+  pageIndex: 0,
+  pageSize: 100,
+};
+
 class PostAbl {
 
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("post");
     this.binaryComponent = new BinaryComponent();
+  }
+
+  async list(awid, dtoIn, session, authorizationResult) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("PostListDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+
+    const sortOptions = {};
+    if (dtoIn.sortQuery) {
+      const { sortBy, order } = dtoIn.sortQuery;
+      if (sortBy) {
+        sortOptions[sortBy] = order === "asc" ? 1 : -1;
+      }
+    }
+
+    const posts = await this.dao.list(awid, dtoIn.pageInfo, dtoIn.searchQuery, sortOptions)
+
+    const dtoOut = {
+      posts,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 
   async update(awid, dtoIn, session, authorizationResult) {

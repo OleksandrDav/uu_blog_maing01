@@ -111,7 +111,19 @@ const Update = {
   },
 };
 
+const List = {
+  UC_CODE: `${POST_ERROR_PREFIX}list/`,
+  InvalidDtoIn: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+};
+
 module.exports = {
+  List,
   Update,
   Get,
   Delete,

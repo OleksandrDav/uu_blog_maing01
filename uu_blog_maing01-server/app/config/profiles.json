@@ -47,11 +47,15 @@
       },
       "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives"]
       },
       "binary/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives"]
+      },
+      "post/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
