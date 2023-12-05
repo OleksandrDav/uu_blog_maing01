@@ -37,7 +37,10 @@ class PostAbl {
     if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
     if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
 
-    const sortOptions = {};
+    const sortOptions = {
+      _id: -1,
+    };
+
     if (dtoIn.sortQuery) {
       const { sortBy, order } = dtoIn.sortQuery;
       if (sortBy) {
