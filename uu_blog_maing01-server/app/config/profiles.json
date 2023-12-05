@@ -27,35 +27,35 @@
       },
       "post/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities", "Authenticated"]
       },
       "post/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
       },
       "post/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
       },
       "comment/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authenticated", "Authorities"]
       },
       "post/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
       },
       "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
+        "profileList": ["Authorities","Executives", "Authenticated", "Authorities"]
       },
       "binary/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
+        "profileList": ["Authorities","Executives", "Authenticated", "Authorities"]
       },
       "post/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
       }
     }
   }
