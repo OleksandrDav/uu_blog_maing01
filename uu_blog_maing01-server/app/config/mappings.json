@@ -55,6 +55,21 @@
         "realization": "api/controllers/PostController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "comment/delete": {
+        "realization": "api/controllers/CommentController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "comment/list": {
+        "realization": "api/controllers/CommentController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "comment/get": {
+        "realization": "api/controllers/CommentController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

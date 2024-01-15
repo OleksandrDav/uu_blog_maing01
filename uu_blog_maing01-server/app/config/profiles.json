@@ -4,7 +4,7 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Authenticated","AwidInitiator"],
+    "profileList": ["Authorities","Executives","StandardUsers","AwidLicenseOwner","Public","Authenticated","AwidInitiator"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created","assigned"],
@@ -27,35 +27,47 @@
       },
       "post/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Authenticated"]
+        "profileList": ["Authorities","StandardUsers"]
       },
       "post/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
+        "profileList": ["Executives","StandardUsers","Authorities"]
       },
       "post/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
       },
       "comment/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated", "Authorities"]
+        "profileList": ["StandardUsers","Authorities"]
       },
       "post/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
+        "profileList": ["Executives","StandardUsers","Authorities"]
       },
       "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives", "Authenticated", "Authorities"]
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
       },
       "binary/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives", "Authenticated", "Authorities"]
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
       },
       "post/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public", "Executives", "Authenticated", "Authorities"]
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
+      },
+      "comment/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Executives","StandardUsers","Authorities"]
+      },
+      "comment/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
+      },
+      "comment/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public","Executives","StandardUsers","Authorities"]
       }
     }
   }

@@ -7,11 +7,105 @@ const Errors = require("../api/errors/comment-error.js");
 
 const Warnings = require("../api/warnings/comment-warnings.js")
 
+const DEFAULTS = {
+  pageIndex: 0,
+  pageSize: 100,
+};
+
+
 class CommentAbl {
 
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("comment");
+  }
+
+  async get(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("CommentGetDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Get.UnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
+    );
+
+    const comment = await this.dao.get(awid, dtoIn.id);
+    if (!comment) {
+      // 3.1
+      throw new Errors.Get.CommentDoesNotExist(uuAppErrorMap, { commentId: dtoIn.id });
+    }
+
+    const dtoOut = {
+      ...comment,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
+  }
+
+  async list(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("CommentListDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+
+    const comments = await this.dao.list(awid, dtoIn.postId, dtoIn.pageInfo);
+
+    const dtoOut = {
+      comments,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
+  }
+
+  async delete(awid, dtoIn, session, authorizationResult) {
+    let uuAppErrorMap = {};
+
+    const validationResult = this.validator.validate("CommentDeleteDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Delete.UnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    const comment = await this.dao.get(awid, dtoIn.id);
+    if (!comment) {
+      // 3.1
+      throw new Errors.Delete.CommentDoesNotExist({ uuAppErrorMap }, { commentId: dtoIn.id });
+    }
+    
+    const uuIdentity = session.getIdentity().getUuIdentity();
+    
+    if (uuIdentity !== comment.creatorIdentity
+      && !authorizationResult.getIdentityProfiles().includes('Authorities')
+      && !authorizationResult.getIdentityProfiles().includes('Executives')) {
+      throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap })
+    }
+
+    await this.dao.delete(awid, dtoIn.id);
+
+    const dtoOut = {
+      comment,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 
   async create(awid, dtoIn, session, authorizationResult) {

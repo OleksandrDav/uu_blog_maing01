@@ -27,7 +27,7 @@ class PostMongo extends UuObjectDao {
   }
 
   async get(awid, id) {
-    return await super.findOne({ id, awid });
+    return await super.findOne({ awid, id });
   }
 
   async update(post) {
