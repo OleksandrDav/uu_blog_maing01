@@ -78,6 +78,14 @@ class PostAbl {
       throw new Errors.Update.PostDoesNotExist(uuAppErrorMap, { postId: dtoIn.id });
     }
 
+    const uuIdentity = session.getIdentity().getUuIdentity();
+    
+    if (uuIdentity !== post.creatorIdentity
+      && !authorizationResult.getIdentityProfiles().includes('Authorities')
+      && !authorizationResult.getIdentityProfiles().includes('Executives')) {
+      throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap })
+    }
+
     if (dtoIn.title) {
       post.title = dtoIn.title;
     }
@@ -167,6 +175,15 @@ class PostAbl {
       // 3.1
       throw new Errors.Delete.PostDoesNotExist({ uuAppErrorMap }, { postId: dtoIn.id });
     }
+    
+    const uuIdentity = session.getIdentity().getUuIdentity();
+    
+    if (uuIdentity !== post.creatorIdentity
+      && !authorizationResult.getIdentityProfiles().includes('Authorities')
+      && !authorizationResult.getIdentityProfiles().includes('Executives')) {
+      throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap })
+    }
+
     if (post.imageCode) {
       await this.binaryComponent.delete(awid, {
         awid: awid,
@@ -200,6 +217,11 @@ class PostAbl {
 
     const uuIdentity = session.getIdentity().getUuIdentity();
     const uuIdentityName = session.getIdentity().getName();
+
+    if (!authorizationResult.getIdentityProfiles().includes('StandardUsers')
+      && !authorizationResult.getIdentityProfiles().includes('Authorities')) {
+      throw new Errors.Create.UserNotAuthorized({ uuAppErrorMap })
+    }
 
     let imageCode;
     if (dtoIn.image) {

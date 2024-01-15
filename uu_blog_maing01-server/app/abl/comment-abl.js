@@ -28,6 +28,11 @@ class CommentAbl {
     );
 
     const uuIdentity = session.getIdentity().getUuIdentity();
+    
+    if (!authorizationResult.getIdentityProfiles().includes('StandardUsers')
+      && !authorizationResult.getIdentityProfiles().includes('Authorities')) {
+      throw new Errors.Create.UserNotAuthorized({ uuAppErrorMap })
+    }
 
     const uuObject = {
       awid,

@@ -12,6 +12,13 @@ const Create = {
       this.message = "DtoIn is not valid.";
     }
   },
+  UserNotAuthorized: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 module.exports = {

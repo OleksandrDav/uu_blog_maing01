@@ -13,6 +13,13 @@ const Create = {
       this.message = "DtoIn is not valid.";
     }
   },
+  UserNotAuthorized: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
+    }
+  },
 };
 
 const Delete = {
@@ -24,25 +31,18 @@ const Delete = {
       this.message = "DtoIn is not valid.";
     }
   },
-  PostMainDoesNotExist: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Delete.UC_CODE}postMainDoesNotExist`;
-      this.message = "UuObject postMain does not exist.";
-    }
-  },
-  PostMainNotInCorrectState: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Delete.UC_CODE}postMainNotInCorrectState`;
-      this.message = "UuObject postMain is not in correct state.";
-    }
-  },
   PostDoesNotExist: class extends BlogMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Delete.UC_CODE}postDoesNotExist`;
       this.message = "Post does not exist.";
+    }
+  },
+  UserNotAuthorized: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
@@ -54,20 +54,6 @@ const Get = {
       super(...arguments);
       this.code = `${Get.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
-    }
-  },
-  PostMainDoesNotExist: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}postMainDoesNotExist`;
-      this.message = "UuObject postMain does not exist.";
-    }
-  },
-  PostMainNotInCorrectState: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}postMainNotInCorrectState`;
-      this.message = "UuObject postMain is not in correct state.";
     }
   },
   PostDoesNotExist: class extends BlogMainUseCaseError {
@@ -88,25 +74,18 @@ const Update = {
       this.message = "DtoIn is not valid.";
     }
   },
-  PostMainDoesNotExist: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Update.UC_CODE}postMainDoesNotExist`;
-      this.message = "UuObject postMain does not exist.";
-    }
-  },
-  PostMainNotInCorrectState: class extends BlogMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Update.UC_CODE}postMainNotInCorrectState`;
-      this.message = "UuObject postMain is not in correct state.";
-    }
-  },
   PostDoesNotExist: class extends BlogMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${Update.UC_CODE}postDoesNotExist`;
       this.message = "post does not exist.";
+    }
+  },
+  UserNotAuthorized: class extends BlogMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}userNotAuthorized`;
+      this.message = "User not authorized.";
     }
   },
 };
