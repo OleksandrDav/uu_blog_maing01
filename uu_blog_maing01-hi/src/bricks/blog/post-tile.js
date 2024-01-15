@@ -1,39 +1,13 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text, Line, Button } from "uu5g05-elements";
+import {createVisualComponent, PropTypes, useRoute, Utils} from "uu5g05";
+import {Box, Text, Line, Button, Grid} from "uu5g05-elements";
+import Uu5TilesElements from "uu5tilesg02-elements";
 import Config from "./config/config.js";
+import {Link} from "uu5g05-elements";
 //@@viewOff:imports
 
 const Css = {
-  main: () =>
-    Config.Css.css({
-      display: "flex",
-      flexDirection: "column",
-      height: "100%",
-    }),
-  header: () =>
-    Config.Css.css({
-      display: "block",
-      padding: 16,
-      height: 48,
-    }),
-  name: () =>
-    Config.Css.css({
-      display: "block",
-      paddingLeft: "16px",
-      paddingTop: "8px",
-      paddingBottom: "3px",
-    }),
-  footer: () =>
-    Config.Css.css({
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      height: 48,
-      marginTop: 8,
-      paddingLeft: 16,
-      paddingRight: 8,
-    })
+
 }
 
 const PostTile = createVisualComponent({
@@ -42,15 +16,7 @@ const PostTile = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {
-    post: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      postText: PropTypes.string,
-      creatorName: PropTypes.string.isRequired,
-      totalViews: PropTypes.number.isRequired,
-      imageUrl: PropTypes.string
-    }).isRequired,
-  },
+
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -58,38 +24,53 @@ const PostTile = createVisualComponent({
   },
   //@@viewOff:defaultProps
 
-  render({ post, style, handleDelete }) {
+  render(props) {
     //@@viewOn:private
-    function handleUpdate() {
-      alert("It's not implemented yet")
-    }
+    let { data, ...otherProps } = props;
+    const [, setRoute] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:render
+    //TODO fix image source
     return (
-      <Box style={style} className={Css.main()}>
-        <Text category="interface" segment="title" type="minor" colorScheme="building" className={Css.header()}>
-          {post.name}
-        </Text>
-        <div>
-          <img src={post.imageUrl} />
-        </div>
-        <Line significance="subdued" />
-        <div>
-          <Text className={Css.name()} category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            {post.creatorName}
-          </Text>
-        </div>
-        <Box significance="distinct" className={Css.footer()}>
-          {`Amount of views: ${post.totalViews}`}
-          <div>
-            <Button icon="mdi-pencil" significance="subdued" tooltip="Update"
-              onClick={() => handleUpdate()} />
-            <Button icon="mdi-delete" significance="subdued" tooltip="Delete"
-              onClick={() => handleDelete(post.id)} />
-          </div>
-        </Box>
-      </Box>
+      <Uu5TilesElements.Tile {...otherProps} headerOverlap>
+        {({ padding }) => {
+          return (
+            <Grid
+              className={Config.Css.css({
+                paddingTop: padding.top,
+                paddingRight: padding.right,
+                paddingBottom: padding.bottom,
+                paddingLeft: padding.left,
+                display: "grid",
+                rowGap: "12px",
+              })}
+            >
+              <Link onClick={() => {
+                setRoute("post", {id: data.data.id}) }} colorScheme="building">
+                {data.data.title}
+              </Link>
+              <div>
+                <img src="https://picsum.photos/320/330" alt="image" onClick={() => {
+                  setRoute("post", {id: data.data.id}) }}/>
+              </div>
+              <Line significance="subdued" />
+              <div>
+                <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
+                  {data.data.creatorName}
+                </Text>
+              </div>
+              <Box significance="distinct">
+                {`Amount of views: ${data.data.totalViews}`}
+                <div>
+                  <Button icon="mdi-pencil" significance="subdued" tooltip="Update"/>
+                  <Button icon="mdi-delete" significance="subdued" tooltip="Delete"/>
+                </div>
+              </Box>
+            </Grid>
+          );
+        }}
+      </Uu5TilesElements.Tile>
     );
     //@@viewOff:render
   },

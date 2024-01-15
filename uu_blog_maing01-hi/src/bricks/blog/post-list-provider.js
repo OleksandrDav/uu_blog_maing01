@@ -1,36 +1,10 @@
 //@@viewOn:imports
-import { createComponent, useState, Utils } from "uu5g05";
+import {createComponent, useCallback, useDataList, useState, Utils} from "uu5g05";
 import Config from "./config/config.js";
+import Calls from "../../calls.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
-const initialPostList = [
-  {
-    id: "5fb245tgr",
-    name: "Post 1",
-    postText: "Some very long post text",
-    creatorName: "Oleksandr Davydovskyi",
-    totalViews: "34",
-    imageUrl: "https://loremflickr.com/640/360"
-  },
-  {
-    id: "5hg36yd",
-    name: "Post 2",
-    postText: "Another post text here",
-    creatorName: "Emily Johnson",
-    totalViews: "45",
-    imageUrl: "https://loremflickr.com/640/360"
-  },
-  {
-    id: "98sjwmd",
-    name: "Post 3",
-    postText: "Lorem ipsum dolor sit amet",
-    creatorName: "Daniel Brown",
-    totalViews: "22",
-    imageUrl: "https://loremflickr.com/640/360"
-  }
-  // Add more objects as needed
-];
 //@@viewOff:constants
 
 //@@viewOn:helpers
@@ -49,14 +23,20 @@ const PostListProvider = createComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render({ children }) {
     //@@viewOn:private
-    const [postList, setPostList] = useState(initialPostList);
+    const pageSize = 10;
 
-    function handleDelete(postId) {
-      const updatedPostList = postList.filter((post) => post.id !== postId)
-      setPostList(updatedPostList)
-    }
+    const postDataList = useDataList({
+      pageSize,
+      handlerMap: {
+        load: Calls.postsLoad,
+      },
+      itemHandlerMap: {
+        delete: Calls.postDelete,
+      }
+    });
+    //const { state, data, newData, errorData, pendingData, handlerMap, errorMap } = postDataList;
 
     //@@viewOff:private
 
@@ -64,8 +44,7 @@ const PostListProvider = createComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const value = { postList, handleDelete };
-    return typeof props.children === "function" ? props.children(value) : props.children;
+    return typeof children === "function" ? children({ postDataList }) : postDataList;
     //@@viewOff:render
   },
 });

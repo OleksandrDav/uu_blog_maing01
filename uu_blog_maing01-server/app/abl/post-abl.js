@@ -51,7 +51,7 @@ class PostAbl {
     const posts = await this.dao.list(awid, dtoIn.pageInfo, dtoIn.searchQuery, sortOptions)
 
     const dtoOut = {
-      posts,
+      ...posts,
       uuAppErrorMap,
     };
 
@@ -79,7 +79,7 @@ class PostAbl {
     }
 
     const uuIdentity = session.getIdentity().getUuIdentity();
-    
+
     if (uuIdentity !== post.creatorIdentity
       && !authorizationResult.getIdentityProfiles().includes('Authorities')
       && !authorizationResult.getIdentityProfiles().includes('Executives')) {
@@ -175,9 +175,9 @@ class PostAbl {
       // 3.1
       throw new Errors.Delete.PostDoesNotExist({ uuAppErrorMap }, { postId: dtoIn.id });
     }
-    
+
     const uuIdentity = session.getIdentity().getUuIdentity();
-    
+
     if (uuIdentity !== post.creatorIdentity
       && !authorizationResult.getIdentityProfiles().includes('Authorities')
       && !authorizationResult.getIdentityProfiles().includes('Executives')) {

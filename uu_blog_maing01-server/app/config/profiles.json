@@ -12,7 +12,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated"]
+        "profileList": ["Authorities","Executives","StandardUsers","Authenticated"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],

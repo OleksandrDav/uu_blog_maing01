@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content, useRef } from "uu5g05";
+import {createVisualComponent, Utils, Content, useRef, useCall} from "uu5g05";
 import { Block, Grid, UuGds } from "uu5g05-elements";
 import { Form, FormFile, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { FormEditor } from "uu5richtextg01-elements";
 import Config from "./config/config.js";
+import Calls from "../calls.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -109,7 +110,13 @@ const CreatePost = createVisualComponent({
 
   render() {
     //@@viewOn:private
+    let { call, state, data, errorData } = useCall(Calls.postCreate);
     function handleSubmit({ data }) {
+      call({
+        title: data.value.title,
+        postText: data.value.post,
+        image: data.value.file,
+      });
       console.log(data.value.file);
       console.log(data.value.title);
       console.log(data.value.post);
@@ -142,9 +149,9 @@ const CreatePost = createVisualComponent({
               }
             >
               <Grid>
-                <FormFile name="file" label="File" accept="image/*" placeholder="Choose an image" />
-                <FormText name="title" placeholder="Post title..." required label="Post title" />
-                <FormEditor name="post" placeholder="Write the text of the post..." required label="Post text" />
+                <FormText name="title" placeholder="Pоst title..." required label="Post title"/>
+                <FormFile name="file" label="File" accept="image/*" placeholder="Choose an image"/>
+                <FormEditor name="post" placeholder="Write the tеxt of the post..." required label="Post text"/>
               </Grid>
             </Block>
           </div>
