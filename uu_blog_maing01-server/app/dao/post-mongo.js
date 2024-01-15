@@ -4,8 +4,8 @@ const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 class PostMongo extends UuObjectDao {
 
   async createSchema() {
-    await super.createIndex({ creatorIdentity: 1 });
     await super.createIndex({ totalViews: 1 });
+    await super.createIndex({ awid: 1, id: 1 });
   }
 
   async list(awid, pageInfo, searchQuery, sortOptions) {
@@ -31,7 +31,7 @@ class PostMongo extends UuObjectDao {
   }
 
   async update(post) {
-    let filter = { id: post.id, awid: post.awid };
+    let filter = { awid: post.awid, id: post.id };
     return await super.findOneAndUpdate(filter, post, "NONE");
   }
 

@@ -4,7 +4,8 @@ const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 class CommentMongo extends UuObjectDao {
 
   async createSchema() {
-    await super.createIndex({ postId: 1 });
+    await super.createIndex({ awid: 1, postId: 1 });
+    await super.createIndex({ awid: 1, id: 1 });
   }
 
   async create(comment) {
@@ -12,7 +13,7 @@ class CommentMongo extends UuObjectDao {
   }
 
   async get(awid, id) {
-    return await super.findOne({ id, awid });
+    return await super.findOne({ awid, id });
   }
 
   async list(awid, postId, pageInfo) {

@@ -1,7 +1,7 @@
 {
   "uuAppBoxDescriptor": {
     "schemaVersion": "2.0",
-    "code": "uun_bpmi23wenft01_maing01",
+    "code": "uun-bpmi23wenft01-maing01",
     "version": "${projectVersion}",
     "name": "uunBpmi23wenft01Maing01",
     "description": "",
