@@ -1,7 +1,7 @@
 //@@viewOn:imports
-import {createVisualComponent, Utils, Content, useRoute, useEffect, useState, useSession} from "uu5g05";
+import {createVisualComponent, useRoute, useEffect, useState, useSession} from "uu5g05";
 import Config from "./config/config.js";
-import {Box, Button, Grid, Line, Link, Text} from "uu5g05-elements";
+import {Button, Grid, Text} from "uu5g05-elements";
 import Calls from "../calls";
 import RouteBar from "../bricks/route-bar";
 import {withRoute} from "uu_plus4u5g02-app";
@@ -57,9 +57,8 @@ let Post = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
-    const { children } = props;
     const [route] = useRoute();
     const [post, setPost] = useState(null);
     const [imageSrc, setImageSrc] = useState(null);
@@ -74,7 +73,6 @@ let Post = createVisualComponent({
           Calls.getBinary({ code:  post.imageCode})
             .then((result) => {
               setImageSrc(URL.createObjectURL(result));
-              console.log("IMAGE", imageSrc);
             })
             .catch((error) => {
               console.error("Error fetching post image:", error);

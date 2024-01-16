@@ -47,7 +47,6 @@ let Home = createVisualComponent({
         </div>
         <PostListProvider>
           {({ postDataList }) => {
-            console.log(postDataList)
             return (
             <div>
             <PostListView

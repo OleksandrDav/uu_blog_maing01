@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import {createVisualComponent, Utils, Content, useRef, useCall, useRoute} from "uu5g05";
+import {createVisualComponent, useCall, useRoute} from "uu5g05";
 import { Block, Grid, UuGds } from "uu5g05-elements";
 import { Form, FormFile, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { FormEditor } from "uu5richtextg01-elements";
@@ -7,7 +7,6 @@ import Config from "./config/config.js";
 import Calls from "../calls.js";
 import RouteBar from "../bricks/route-bar";
 import {withRoute} from "uu_plus4u5g02-app";
-import Home from "./home";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -113,16 +112,13 @@ let CreatePost = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    let { call, state, data, errorData } = useCall(Calls.postCreate);
+    let { call, } = useCall(Calls.postCreate);
     function handleSubmit({ data }) {
       call({
         title: data.value.title,
         postText: data.value.post,
         image: data.value.file,
       });
-      console.log(data.value.file);
-      console.log(data.value.title);
-      console.log(data.value.post);
       setRoute("home");
     }
 

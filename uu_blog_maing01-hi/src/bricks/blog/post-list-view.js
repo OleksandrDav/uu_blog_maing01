@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import {createVisualComponent, PropTypes, useMemo, useState} from "uu5g05";
+import {createVisualComponent, PropTypes} from "uu5g05";
 import Config from "./config/config.js";
 import Uu5Tiles from "uu5tilesg02";
 import Uu5TilesElements from "uu5tilesg02-elements";
@@ -41,9 +41,7 @@ const PostListView = createVisualComponent({
   //@@viewOff:defaultProps
 
   render({ postDataList }) {
-    console.log(postDataList)
     //@@viewOn:private
-    const [sortOptions, setSortOptions] = useState(true);
     const sorterList = [
       {
         key: "Popularity ↑",
