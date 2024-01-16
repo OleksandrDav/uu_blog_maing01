@@ -17,7 +17,10 @@
     "uu_plus4u5g02-app": "^1.22.2",
     "uu_plus4u5g02-elements": "^1.22.2",
     "uu5richtextg01": "^2.0.0",
-    "uu5richtextg01-elements": "^2.0.0"
+    "uu5richtextg01-elements": "^2.0.0",
+    "uu5tilesg02": "^2.11.0",
+    "uu5tilesg02-controls": "^2.11.0",
+    "uu5tilesg02-elements": "^2.11.0"
   },
   "uuBuildSettings": {
     "externals": {}

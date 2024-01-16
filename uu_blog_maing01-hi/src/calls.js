@@ -19,6 +19,36 @@ const Calls = {
   //   return Calls.call("get", commandUri, dtoIn);
   // },
 
+  postsLoad(dtoIn) {
+    const commandUri = Calls.getCommandUri("post/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  postUpdate(dtoIn) {
+    const commandUri = Calls.getCommandUri("post/update");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  postGet(dtoIn) {
+    const commandUri = Calls.getCommandUri("post/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  postDelete(dtoIn) {
+    const commandUri = Calls.getCommandUri("post/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  postCreate(dtoIn) {
+    const commandUri = Calls.getCommandUri("post/create");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  getBinary(dtoIn) {
+    const commandUri = Calls.getCommandUri("binary/getData");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri);

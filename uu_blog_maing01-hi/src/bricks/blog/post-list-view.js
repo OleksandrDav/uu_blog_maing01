@@ -1,6 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, PropTypes } from "uu5g05";
+import {createVisualComponent, PropTypes, useMemo, useState} from "uu5g05";
 import Config from "./config/config.js";
+import Uu5Tiles from "uu5tilesg02";
+import Uu5TilesElements from "uu5tilesg02-elements";
 import PostTile from "./post-tile.js";
 //@@viewOff:imports
 
@@ -9,7 +11,11 @@ import PostTile from "./post-tile.js";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }),
 };
 //@@viewOff:css
 
@@ -24,18 +30,20 @@ const PostListView = createVisualComponent({
 
   //@@viewOn:propTypes
   propTypes: {
-    postList: PropTypes.array.isRequired,
+    postDataList: PropTypes.object.isRequired,
   },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {
-    postList: [],
+    postDataList: undefined
   },
   //@@viewOff:defaultProps
 
-  render({ postList, handleDelete }) {
+  render({ postDataList }) {
+    console.log(postDataList)
     //@@viewOn:private
+    const [sortOptions, setSortOptions] = useState(true);
 
     //@@viewOff:private
 
@@ -44,17 +52,16 @@ const PostListView = createVisualComponent({
 
     //@@viewOn:render
 
+
     return (
-      <div >
-        {postList.map((post) => (
-          <PostTile
-            key={post.id}
-            post={post}
-            style={{ width: 640, margin: "24px auto" }}
-            handleDelete={handleDelete}
-          />
-        ))}
+
+    <Uu5Tiles.ControllerProvider data={postDataList.data || []}>
+      <div className={Css.main()}>
+        <Uu5TilesElements.Grid tileMinWidth={800} tileMaxWidth={1200} >
+          {PostTile}
+        </Uu5TilesElements.Grid>
       </div>
+    </Uu5Tiles.ControllerProvider>
     );
     //@@viewOff:render
   },
