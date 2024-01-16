@@ -82,7 +82,7 @@ const PostTile = createVisualComponent({
                 </Text>
               </div>
               <Box significance="distinct">
-                <Text>{`Amount of views: ${data.data.totalViews}`}</Text>
+                <Text>{`Amount of views: ${post.totalViews}`}</Text>
                 {(currentUserId === post.creatorIdentity) && <Button icon="mdi-pencil" significance="subdued" tooltip="Update" className={Css.tileIcon()}/>}
                 {(currentUserId === post.creatorIdentity) && <Button icon="mdi-delete" significance="subdued" tooltip="Delete" className={Css.tileIcon()}/>}
               </Box>

@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createVisualComponent} from "uu5g05";
+import {createVisualComponent, useEffect, useSession, useState} from "uu5g05";
 import Config from "./config/config.js";
-import {Block, Box, Button, Grid, Line, Text, UuGds} from "uu5g05-elements";
+import {Block, Box, Button, Grid, Line, Link, Text, UuGds} from "uu5g05-elements";
 import {SubmitButton} from "uu5g05-forms";
 import {FormEditor} from "uu5richtextg01-elements";
+import Calls from "../../calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -11,7 +12,12 @@ import {FormEditor} from "uu5richtextg01-elements";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "50%",
+  }),
 };
 //@@viewOff:css
 
@@ -45,12 +51,12 @@ const PostDetailView = createVisualComponent({
     //@@viewOn:render
 
     return (
-      <Box style={style} className={Css.main()}>
+      <div className={Css.main()}>
         <Text category="interface" type="minor" colorScheme="building" className={Css.header()}>
           {post.name}
         </Text>
         <div>
-          <img src={post.imageUrl} />
+          {post.imageCode && <img src={imageSrc} alt="post image"/>}
         </div>
         <Line significance="subdued" />
         <div>
@@ -86,7 +92,7 @@ const PostDetailView = createVisualComponent({
         >
           <FormEditor name="comment" placeholder="Comment this post" required label="Comment text"/>
         </Block>
-      </Box>
+      </div>
     );
     //@@viewOff:render
   },

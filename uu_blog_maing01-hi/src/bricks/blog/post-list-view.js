@@ -44,7 +44,28 @@ const PostListView = createVisualComponent({
     console.log(postDataList)
     //@@viewOn:private
     const [sortOptions, setSortOptions] = useState(true);
-
+    const sorterList = [
+      {
+        key: "Popularity ↑",
+        sort: (post1, post2) => post1.totalViews - post2.totalViews,
+        label: "Popularity ↑"
+      },
+      {
+        key: "Popularity ↓",
+        sort: (post1, post2) => post2.totalViews - post1.totalViews,
+        label: "Popularity ↓"
+      },
+      {
+        key: "Date ↑",
+        sort: (post1, post2) => post1.sys.cts - post2.sys.cts,
+        label: "Date ↑"
+      },
+      {
+        key: "Date ↓",
+        sort: (post1, post2) => post2.sys.cts - post1.sys.cts,
+        label: "Date ↓"
+      }
+    ];
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -55,7 +76,7 @@ const PostListView = createVisualComponent({
 
     return (
 
-    <Uu5Tiles.ControllerProvider data={postDataList.data || []}>
+    <Uu5Tiles.ControllerProvider data={postDataList.data || []} sorterDefinitionList={sorterList}>
       <div className={Css.main()}>
         <Uu5TilesElements.Grid tileMinWidth={800} tileMaxWidth={1200} >
           {PostTile}
