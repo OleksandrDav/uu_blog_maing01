@@ -4,6 +4,8 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/comment-error.js");
+const PostErrors = require("../api/errors/post-error.js");
+const PostAbl = require("./post-abl.js");
 
 const Warnings = require("../api/warnings/comment-warnings.js")
 
@@ -83,14 +85,21 @@ class CommentAbl {
       Warnings.Delete.UnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
+    
+    const uuIdentity = session.getIdentity().getUuIdentity();
 
     const comment = await this.dao.get(awid, dtoIn.id);
     if (!comment) {
       // 3.1
       throw new Errors.Delete.CommentDoesNotExist({ uuAppErrorMap }, { commentId: dtoIn.id });
     }
-    
-    const uuIdentity = session.getIdentity().getUuIdentity();
+    console.log(comment);
+
+    const post = await PostAbl.dao.get(awid, comment.postId);
+    if (!post) {
+      // 3.1
+      throw new PostErrors.Delete.PostDoesNotExist({ uuAppErrorMap }, { postId: comment.postId });
+    }
     
     if (uuIdentity !== comment.creatorIdentity
       && !authorizationResult.getIdentityProfiles().includes('Authorities')

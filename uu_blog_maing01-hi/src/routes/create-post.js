@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import {createVisualComponent, Utils, Content, useRef, useCall} from "uu5g05";
+import {createVisualComponent, Utils, Content, useRef, useCall, useRoute} from "uu5g05";
 import { Block, Grid, UuGds } from "uu5g05-elements";
 import { Form, FormFile, FormText, SubmitButton, CancelButton } from "uu5g05-forms";
 import { FormEditor } from "uu5richtextg01-elements";
@@ -123,7 +123,10 @@ let CreatePost = createVisualComponent({
       console.log(data.value.file);
       console.log(data.value.title);
       console.log(data.value.post);
+      setRoute("home");
     }
+
+    const [, setRoute] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:interface

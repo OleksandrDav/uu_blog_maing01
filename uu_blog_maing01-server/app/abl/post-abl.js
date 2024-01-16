@@ -120,6 +120,7 @@ class PostAbl {
       });
       post.imageCode = null;
     }
+    
     await this.dao.update(post);
 
     const dtoOut = {

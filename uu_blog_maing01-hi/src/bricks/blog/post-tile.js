@@ -1,10 +1,10 @@
 //@@viewOn:imports
-import {createVisualComponent, PropTypes, useCall, useEffect, useRoute, useSession, useState, Utils} from "uu5g05";
-import {Box, Text, Line, Button, Grid} from "uu5g05-elements";
+import { createVisualComponent, PropTypes, useCall, useEffect, useRoute, useSession, useState, Utils } from "uu5g05";
+import { Box, Text, Line, Button, Grid } from "uu5g05-elements";
 import Uu5TilesElements from "uu5tilesg02-elements";
 import { useSystemData, useSubAppData, useSubApp } from "uu_plus4u5g02";
 import Config from "./config/config.js";
-import {Link} from "uu5g05-elements";
+import { Link } from "uu5g05-elements";
 import Calls from "../../calls";
 //@@viewOff:imports
 
@@ -40,9 +40,8 @@ const PostTile = createVisualComponent({
     //@@viewOff:private
 
     useEffect(() => {
-      if (post.imageCode)
-      {
-        Calls.getBinary({ code:  post.imageCode})
+      if (post.imageCode) {
+        Calls.getBinary({ code: post.imageCode })
           .then((result) => {
             setImageSrc(URL.createObjectURL(result));
             console.log("IMAGE", imageSrc);
@@ -52,6 +51,15 @@ const PostTile = createVisualComponent({
           });
       }
     }, []);
+    async function handleDeleteProduct(postId) {
+      try {
+        await Calls.postDelete({
+          id: postId
+        })
+      } catch (error) {
+        console.error("Error fetching shopping list:", error);
+      }
+    }
 
     //@@viewOn:render
     return (
@@ -69,11 +77,12 @@ const PostTile = createVisualComponent({
               })}
             >
               <Link onClick={() => {
-                setRoute("post", {id: post.id}) }}>
+                setRoute("post", { id: post.id })
+              }}>
                 <Text colorScheme="building" category="story" segment="heading" type="h2">{post.title}</Text>
               </Link>
-              {post.imageCode && <Link onClick={() => { setRoute("post", {id: post.id}) }}>
-                <img src={imageSrc} alt="post image"/>
+              {post.imageCode && <Link onClick={() => { setRoute("post", { id: post.id }) }}>
+                <img src={imageSrc} alt="post image" />
               </Link>}
               <Line significance="subdued" />
               <div>
