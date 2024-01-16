@@ -1,7 +1,8 @@
 //@@viewOn:imports
-import {createVisualComponent} from "uu5g05";
+import {createVisualComponent, useSession} from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
+import {useSystemData} from "uu_plus4u5g02";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -33,20 +34,30 @@ const RouteBar = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const {data: systemData} = useSystemData()
     const itemList = [
-      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" onClick={() => {
-        props.setRoute("home") }}>Home</Uu5Elements.Button>
+      //button that sends user to the home page
+      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" icon="uugds-home" href="home"/>
       },
-      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" onClick={() => {
-          props.setRoute("popular") }}>Popular</Uu5Elements.Button>
+      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" href="home">
+            Popular</Uu5Elements.Button>
       },
       { component: <Uu5Elements.Input className={Css.buttons()} colorScheme="blue" placeholder="Search..." /> },
-      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="grey" onClick={() => {
-          props.setRoute("home") }}>Search!</Uu5Elements.Button>
+      { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" href="home" onClick={() => {
+           }}>Search!</Uu5Elements.Button>
       }
     ];
 
-    const label = props.children;
+    //get user authentication
+    const identity = useSession();
+    if (identity.state === "authenticated") {
+      itemList.push({ component: <Uu5Elements.Button className={Css.buttons()} colorScheme="green" href="createpost">
+          New Post</Uu5Elements.Button>
+      });
+
+    }
+
+    const label = systemData?.asidData.name;
     //@@viewOff:private
 
     //@@viewOn:interface

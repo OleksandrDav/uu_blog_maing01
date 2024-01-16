@@ -44,6 +44,11 @@ const Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
 
+  getBinary(dtoIn) {
+    const commandUri = Calls.getCommandUri("binary/getData");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri);

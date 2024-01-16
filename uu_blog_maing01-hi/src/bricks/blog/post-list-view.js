@@ -11,7 +11,11 @@ import PostTile from "./post-tile.js";
 
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css({}),
+  main: () => Config.Css.css({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }),
 };
 //@@viewOff:css
 
@@ -50,20 +54,13 @@ const PostListView = createVisualComponent({
 
 
     return (
-      /*<div >
-        {postList.map((post) => (
-          <PostTile
-            key={post.id}
-            post={post}
-            style={{ width: 640, margin: "24px auto" }}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </div>*/
+
     <Uu5Tiles.ControllerProvider data={postDataList.data || []}>
-      <Uu5TilesElements.Grid tileMinWidth={300} tileMaxWidth={400}>
-        {PostTile}
-      </Uu5TilesElements.Grid>
+      <div className={Css.main()}>
+        <Uu5TilesElements.Grid tileMinWidth={800} tileMaxWidth={1200} >
+          {PostTile}
+        </Uu5TilesElements.Grid>
+      </div>
     </Uu5Tiles.ControllerProvider>
     );
     //@@viewOff:render

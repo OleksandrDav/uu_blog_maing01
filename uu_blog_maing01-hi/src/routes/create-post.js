@@ -5,6 +5,9 @@ import { Form, FormFile, FormText, SubmitButton, CancelButton } from "uu5g05-for
 import { FormEditor } from "uu5richtextg01-elements";
 import Config from "./config/config.js";
 import Calls from "../calls.js";
+import RouteBar from "../bricks/route-bar";
+import {withRoute} from "uu_plus4u5g02-app";
+import Home from "./home";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -94,7 +97,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const CreatePost = createVisualComponent({
+let CreatePost = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "CreatePost",
   nestingLevel: ["areaCollection", "area"],
@@ -129,6 +132,10 @@ const CreatePost = createVisualComponent({
     //@@viewOn:render
 
     return (
+      <>
+      <RouteBar>
+        UU Blogs
+      </RouteBar>
       <Form onSubmit={handleSubmit}>
         <div className={Css.main()}>
           <div className={Css.paper()}>
@@ -157,11 +164,14 @@ const CreatePost = createVisualComponent({
           </div>
         </div>
       </Form>
+      </>
     );
 
     //@@viewOff:render
   },
 });
+
+CreatePost = withRoute(CreatePost, { authenticated: true });
 
 //@@viewOn:exports
 export { CreatePost };

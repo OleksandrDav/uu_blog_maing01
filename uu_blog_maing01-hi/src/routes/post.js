@@ -3,6 +3,9 @@ import {createVisualComponent, Utils, Content, useRoute, useEffect, useState} fr
 import Config from "./config/config.js";
 import {Box, Button, Grid, Line, Link, Text} from "uu5g05-elements";
 import Calls from "../calls";
+import RouteBar from "../bricks/route-bar";
+import {withRoute} from "uu_plus4u5g02-app";
+import CreatePost from "./create-post";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,7 +20,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const Post = createVisualComponent({
+let Post = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Post",
   nestingLevel: ["areaCollection", "area"],
@@ -58,6 +61,10 @@ const Post = createVisualComponent({
 
     //@@viewOn:render
     return (
+      <>
+        <RouteBar>
+          UU Blogs
+        </RouteBar>
       <Grid>
         <div>
           <Text colorScheme="building">
@@ -79,11 +86,14 @@ const Post = createVisualComponent({
         </Text>
 
       </Grid>
+      </>
     );
 
     //@@viewOff:render
   },
 });
+
+Post = withRoute(Post, { authenticated: false });
 
 //@@viewOn:exports
 export { Post };

@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import {createVisualComponent, useState} from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
-import { useSystemData, useSubAppData, useSubApp } from "uu_plus4u5g02";
 import Config from "./config/config.js";
 import PostListProvider from "../bricks/blog/post-list-provider.js";
 import PostListView from "../bricks/blog/post-list-view.js";
@@ -27,8 +26,6 @@ let Home = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const {data: systemData} = useSystemData()
-    console.log(systemData);
 
     const [sortOption, setSortOption] = useState("Date ↓");
     //@@vieOff:private
@@ -66,7 +63,7 @@ let Home = createVisualComponent({
   },
 });
 
-Home = withRoute(Home, { authenticated: true });
+Home = withRoute(Home, { authenticated: false });
 
 //@@viewOn:exports
 export { Home };
