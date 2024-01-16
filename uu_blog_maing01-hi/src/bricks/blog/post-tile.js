@@ -36,7 +36,7 @@ const PostTile = createVisualComponent({
     const post = data.data;
     const [imageSrc, setImageSrc] = useState(null);
     const session = useSession();
-    const currentUserId = session.identity.uuIdentity;
+    const currentUserId = session?.identity?.uuIdentity;
     //@@viewOff:private
 
     useEffect(() => {

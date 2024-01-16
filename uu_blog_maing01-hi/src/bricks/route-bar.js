@@ -2,7 +2,7 @@
 import {createVisualComponent, useSession} from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Config from "./config/config.js";
-import {useSystemData} from "uu_plus4u5g02";
+import {useSystemData, useSubAppData, useSubApp} from "uu_plus4u5g02";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -34,7 +34,10 @@ const RouteBar = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const {data: systemData} = useSystemData()
+    const subAppDataObject = useSubAppData();
+    const systemDataObject = useSystemData();
+    const {data: subApp} = useSubApp();
+
     const itemList = [
       //button that sends user to the home page
       { component: <Uu5Elements.Button className={Css.buttons()} colorScheme="blue" icon="uugds-home" href="home"/>
@@ -57,7 +60,8 @@ const RouteBar = createVisualComponent({
 
     }
 
-    const label = systemData?.asidData.name;
+    //const label = systemData?.asidData?.name;
+    const label = "UU Blog";
     //@@viewOff:private
 
     //@@viewOn:interface
